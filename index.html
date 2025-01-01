@@ -116,36 +116,36 @@
         function getSmartestResponse() {
             const chance = Math.random();
 
-            if (chance < 0.2) {
+            if (chance < 0.1) {
                 // Trigger fake error
                 const errorIndex = Math.floor(Math.random() * fakeErrors.length);
                 alert(fakeErrors[errorIndex]);
                 document.getElementById("ai-response").textContent = "";
-            } else if (chance < 0.3) {
+            } else if (chance < 0.2) {
                 // Trigger cat GIF
                 showCatGIF();
-            } else if (chance < 0.4) {
+            } else if (chance < 0.3) {
                 // Trigger pixelate effect
                 triggerPixelate();
-            } else if (chance < 0.5) {
+            } else if (chance < 0.4) {
                 // Reverse text response
                 const randomIndex = Math.floor(Math.random() * responses.length);
                 const response = responses[randomIndex];
                 document.getElementById("ai-response").textContent = reverseText(response);
-            } else if (chance < 0.6) {
+            } else if (chance < 0.5) {
                 // Text-to-speech
                 const randomIndex = Math.floor(Math.random() * responses.length);
                 const response = responses[randomIndex];
                 document.getElementById("ai-response").textContent = response;
                 speakText(response);
-            } else if (chance < 0.7) {
+            } else if (chance < 0.6) {
                 // Confetti effect
                 triggerConfetti();
                 document.getElementById("ai-response").textContent = "Confetti time! 🎉";
-            } else if (chance < 0.8) {
+            } else if (chance < 0.7) {
                 // Show meme
                 showRandomMeme();
-            } else if (chance < 0.9) {
+            } else if (chance < 0.8) {
                 // Random voice change
                 randomVoice();
                 document.getElementById("ai-response").textContent = "I've got a new voice!";
