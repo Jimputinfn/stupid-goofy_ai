@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The World's Smartest AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Add flip animation */
+        .flip {
+            transform: rotate(180deg);
+            transition: transform 0.5s ease-in-out;
+        }
+    </style>
 </head>
 <body class="bg-gradient-to-r from-purple-500 to-pink-500 h-screen flex items-center justify-center">
     <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full text-center">
@@ -50,20 +57,24 @@
             // Rickroll URL
             const rickrollURL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 
-            // Generate a random chance to decide between a smart response, a fake error, or a Rickroll
+            // Generate a random chance to decide between a smart response, a fake error, a Rickroll, or flip the site
             const chance = Math.random();
 
-            if (chance < 0.1) {
+            if (chance < 0.05) {
+                // 5% chance to flip the page
+                document.body.classList.toggle('flip');
+                document.getElementById("ai-response").textContent = "Uh-oh! I think I flipped the page...!";
+            } else if (chance < 0.1) {
                 // 10% chance to open a Rickroll
                 window.open(rickrollURL, "_blank");
                 document.getElementById("ai-response").textContent = "Enjoy the show! 🎶";
-            } else if (chance < 0.6) {
-                // 50% chance of showing a fake error
+            } else if (chance < 0.7) {
+                // 60% chance of showing a fake error
                 const errorIndex = Math.floor(Math.random() * fakeErrors.length);
                 alert(fakeErrors[errorIndex]);
                 document.getElementById("ai-response").textContent = "";
             } else {
-                // 40% chance of showing a semi-smart/fun response
+                // 25% chance of showing a semi-smart/fun response
                 const randomIndex = Math.floor(Math.random() * responses.length);
                 const response = responses[randomIndex];
                 document.getElementById("ai-response").textContent = response;
