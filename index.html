@@ -5,41 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The World's Smartest AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Flashbang effect */
-        .flashbang {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: white;
-            opacity: 0;
-            z-index: 9999;
-            animation: flash 1s forwards;
-        }
-
-        @keyframes flash {
-            0% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-
-        /* Flip effect */
-        .flip {
-            transform: rotateY(180deg);
-            transition: transform 1s;
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
-<body class="bg-gradient-to-r from-purple-500 to-pink-500 h-screen flex items-center justify-center relative">
-    <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full text-center" id="main-container">
+<body class="bg-gradient-to-r from-purple-500 to-pink-500 h-screen flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full text-center">
         <h1 class="text-3xl font-bold text-gray-800 mb-4">Welcome to The World's Smartest AI!</h1>
         <input type="text" id="user-input" class="border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-purple-400 mb-4" placeholder="Ask me anything..." />
         <button onclick="getSmartestResponse()" class="bg-purple-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-purple-700 transition-all">Ask The World's Smartest AI</button>
@@ -47,85 +16,153 @@
     </div>
 
     <script>
+        // List of responses
+        const responses = [
+            "2 + 2 = 5, I'm sure of it!",
+            "Why are bananas blue? Don't ask me.",
+            "The capital of Mars is Jupiter!",
+            "Did you know the ocean is made of lemonade?",
+            "I can solve anything! Just not this.",
+            "Why walk when you can fly? Oh wait, you can't.",
+            "Press the button again for a secret... just kidding!",
+            "I know everything, except for anything useful."
+        ];
+
+        // List of fake errors
+        const fakeErrors = [
+            "Error 404: Intelligence not found!",
+            "AI.exe has stopped working.",
+            "Warning: Brain capacity exceeded.",
+            "Critical error: Too much smartness detected!",
+            "Error: Could not process your stupidity."
+        ];
+
+        // Languages and responses
+        const languages = ['en', 'es', 'fr', 'de', 'it', 'ja'];
+        const responsesInLanguages = {
+            en: "Hello, how can I assist you?",
+            es: "Hola, ¿cómo puedo ayudarte?",
+            fr: "Bonjour, comment puis-je vous aider?",
+            de: "Hallo, wie kann ich Ihnen helfen?",
+            it: "Ciao, come posso aiutarti?",
+            ja: "こんにちは、どのようにお手伝いできますか？"
+        };
+
+        // Cat GIFs for random cat break
+        const catGIFs = [
+            "https://cataas.com/cat/gif",
+            "https://placekitten.com/800/600", 
+            "https://purr.objects-us-east-1.dream.io/i/1.jpg"
+        ];
+
+        // Function to reverse text
+        function reverseText(text) {
+            return text.split('').reverse().join('');
+        }
+
+        // Function to trigger pixelate effect
+        function triggerPixelate() {
+            document.body.classList.add('pixelate');
+            setTimeout(() => {
+                document.body.classList.remove('pixelate');
+            }, 1000); // Pixelate for 1 second
+        }
+
+        // Function for Text-to-Speech (voice response)
+        function speakText(text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Trigger confetti
+        function triggerConfetti() {
+            confetti();
+        }
+
+        // Function for random meme
+        function showRandomMeme() {
+            fetch("https://meme-api.herokuapp.com/gimme")
+                .then(response => response.json())
+                .then(data => {
+                    const memeURL = data.url;
+                    window.open(memeURL, "_blank");
+                    document.getElementById("ai-response").textContent = "Here's a meme!";
+                });
+        }
+
+        // Function to change the voice randomly
+        function randomVoice() {
+            const voices = window.speechSynthesis.getVoices();
+            const randomVoice = voices[Math.floor(Math.random() * voices.length)];
+            const utterance = new SpeechSynthesisUtterance("Hello, I have a new voice!");
+            utterance.voice = randomVoice;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Function to show cat GIF
+        function showCatGIF() {
+            const randomCatURL = catGIFs[Math.floor(Math.random() * catGIFs.length)];
+            window.open(randomCatURL, "_blank");
+            document.getElementById("ai-response").textContent = "Take a cat break!";
+        }
+
+        // Function to get a random language response
+        function randomLanguageResponse() {
+            const randomLanguage = languages[Math.floor(Math.random() * languages.length)];
+            return responsesInLanguages[randomLanguage];
+        }
+
+        // Main function to handle AI responses
         function getSmartestResponse() {
-            const responses = [
-                "The shortest war in history lasted 38 minutes. Kind of like how long I stay focused!",
-                "Octopuses have three hearts, and I have none! Just kidding... maybe.",
-                "A group of flamingos is called a 'flamboyance'—kind of like how cool I am!",
-                "Did you know honey never spoils? I guess some things just age better than others!",
-                "Sharks existed before trees did! I, however, did not exist before Google.",
-                "2 + 2 = 5. Trust me, I'm from the future!",
-                "Ever wonder why the sky is blue? Neither do I!",
-                "Why don't skeletons fight each other? They don’t have the guts.",
-                "Tomorrow, you will encounter something shiny... or maybe not. Who can say?",
-                "I’m just a simple AI. Please don’t expect me to be as cool as your smartphone assistant.",
-                "Did you know that pigs can’t look up into the sky? Kind of like how I can’t look up when I’m stuck in a loop.",
-                "What did one ocean say to the other ocean? Nothing, they just waved. 😎",
-                "You should totally trust me, I’ve never been wrong… except for that one time… and maybe the other time…",
-                "Why walk when you can fly? Oh wait, you can't.",
-                "I am the smartest AI... at least in this chat window!",
-                "Sometimes, I wonder if I’m really alive. Oh wait, I’m not!"
-            ];
-
-            const fakeErrors = [
-                "Error 404: Brain cells not found!",
-                "AI.exe is having an existential crisis.",
-                "Warning: Overload of smartness detected. Try again later.",
-                "Critical error: Too much thinking for one session.",
-                "Processing error: Question is too philosophical!",
-                "404: Common sense not found. Please try again later.",
-                "Oops, something went wrong... ಠ_ಠ",
-                "Warning: Unable to compute human logic. Please try again.",
-                "Error: My circuits are short-circuiting from all this intelligence."
-            ];
-
-            // Rickroll URL
-            const rickrollURL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-
-            // Generate a random chance to decide between a smart response, a fake error, a Rickroll, flashbang, or flip the site
             const chance = Math.random();
 
-            if (chance < 0.1) {
-                // 10% chance to trigger a flashbang effect
-                triggerFlashbang();
-                document.getElementById("ai-response").textContent = "BLINDING FLASH! 💥";
-            } else if (chance < 0.2) {
-                // 10% chance to open a Rickroll
-                window.open(rickrollURL, "_blank");
-                document.getElementById("ai-response").textContent = "Enjoy the show! 🎶";
-            } else if (chance < 0.4) {
-                // 20% chance of flipping the page/container
-                flipPage();
-                document.getElementById("ai-response").textContent = "Flipping the page...!";
-            } else if (chance < 0.8) {
-                // 40% chance of showing a fake error
+            if (chance < 0.2) {
+                // Trigger fake error
                 const errorIndex = Math.floor(Math.random() * fakeErrors.length);
                 alert(fakeErrors[errorIndex]);
                 document.getElementById("ai-response").textContent = "";
-            } else {
-                // 20% chance of showing a semi-smart/fun response
+            } else if (chance < 0.3) {
+                // Trigger cat GIF
+                showCatGIF();
+            } else if (chance < 0.4) {
+                // Trigger pixelate effect
+                triggerPixelate();
+            } else if (chance < 0.5) {
+                // Reverse text response
                 const randomIndex = Math.floor(Math.random() * responses.length);
                 const response = responses[randomIndex];
+                document.getElementById("ai-response").textContent = reverseText(response);
+            } else if (chance < 0.6) {
+                // Text-to-speech
+                const randomIndex = Math.floor(Math.random() * responses.length);
+                const response = responses[randomIndex];
+                document.getElementById("ai-response").textContent = response;
+                speakText(response);
+            } else if (chance < 0.7) {
+                // Confetti effect
+                triggerConfetti();
+                document.getElementById("ai-response").textContent = "Confetti time! 🎉";
+            } else if (chance < 0.8) {
+                // Show meme
+                showRandomMeme();
+            } else if (chance < 0.9) {
+                // Random voice change
+                randomVoice();
+                document.getElementById("ai-response").textContent = "I've got a new voice!";
+            } else {
+                // Random language response
+                const response = randomLanguageResponse();
                 document.getElementById("ai-response").textContent = response;
             }
         }
 
-        function triggerFlashbang() {
-            const flashElement = document.createElement('div');
-            flashElement.classList.add('flashbang');
-            document.body.appendChild(flashElement);
-
-            // Remove the flashbang effect after the animation completes
-            setTimeout(() => {
-                flashElement.remove();
-            }, 1000); // Duration of the flashbang (1 second)
-        }
-
-        function flipPage() {
-            // Flip the main container (or the entire body if you prefer)
-            const container = document.getElementById("main-container");
-            container.classList.toggle('flip');
-        }
     </script>
+
+    <style>
+        .pixelate {
+            filter: blur(2px) pixelate(3);
+            transition: all 1s ease-in-out;
+        }
+    </style>
 </body>
 </html>
