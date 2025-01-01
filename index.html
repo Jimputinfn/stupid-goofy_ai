@@ -6,15 +6,40 @@
     <title>The World's Smartest AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Add flip animation */
+        /* Flashbang effect */
+        .flashbang {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            opacity: 0;
+            z-index: 9999;
+            animation: flash 1s forwards;
+        }
+
+        @keyframes flash {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        /* Flip effect */
         .flip {
-            transform: rotate(180deg);
-            transition: transform 0.5s ease-in-out;
+            transform: rotateY(180deg);
+            transition: transform 1s;
         }
     </style>
 </head>
-<body class="bg-gradient-to-r from-purple-500 to-pink-500 h-screen flex items-center justify-center">
-    <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full text-center">
+<body class="bg-gradient-to-r from-purple-500 to-pink-500 h-screen flex items-center justify-center relative">
+    <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full text-center" id="main-container">
         <h1 class="text-3xl font-bold text-gray-800 mb-4">Welcome to The World's Smartest AI!</h1>
         <input type="text" id="user-input" class="border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-purple-400 mb-4" placeholder="Ask me anything..." />
         <button onclick="getSmartestResponse()" class="bg-purple-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-purple-700 transition-all">Ask The World's Smartest AI</button>
@@ -57,28 +82,49 @@
             // Rickroll URL
             const rickrollURL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 
-            // Generate a random chance to decide between a smart response, a fake error, a Rickroll, or flip the site
+            // Generate a random chance to decide between a smart response, a fake error, a Rickroll, flashbang, or flip the site
             const chance = Math.random();
 
-            if (chance < 0.15) {
-                // 15% chance to flip the page
-                document.body.classList.toggle('flip');
-                document.getElementById("ai-response").textContent = "Uh-oh! I think I flipped the page...!";
-            } else if (chance < 0.3) {
-                // 15% chance to open a Rickroll
+            if (chance < 0.1) {
+                // 10% chance to trigger a flashbang effect
+                triggerFlashbang();
+                document.getElementById("ai-response").textContent = "BLINDING FLASH! 💥";
+            } else if (chance < 0.2) {
+                // 10% chance to open a Rickroll
                 window.open(rickrollURL, "_blank");
                 document.getElementById("ai-response").textContent = "Enjoy the show! 🎶";
-            } else if (chance < 0.7) {
+            } else if (chance < 0.4) {
+                // 20% chance of flipping the page/container
+                flipPage();
+                document.getElementById("ai-response").textContent = "Flipping the page...!";
+            } else if (chance < 0.8) {
                 // 40% chance of showing a fake error
                 const errorIndex = Math.floor(Math.random() * fakeErrors.length);
                 alert(fakeErrors[errorIndex]);
                 document.getElementById("ai-response").textContent = "";
             } else {
-                // 30% chance of showing a semi-smart/fun response
+                // 20% chance of showing a semi-smart/fun response
                 const randomIndex = Math.floor(Math.random() * responses.length);
                 const response = responses[randomIndex];
                 document.getElementById("ai-response").textContent = response;
             }
+        }
+
+        function triggerFlashbang() {
+            const flashElement = document.createElement('div');
+            flashElement.classList.add('flashbang');
+            document.body.appendChild(flashElement);
+
+            // Remove the flashbang effect after the animation completes
+            setTimeout(() => {
+                flashElement.remove();
+            }, 1000); // Duration of the flashbang (1 second)
+        }
+
+        function flipPage() {
+            // Flip the main container (or the entire body if you prefer)
+            const container = document.getElementById("main-container");
+            container.classList.toggle('flip');
         }
     </script>
 </body>
