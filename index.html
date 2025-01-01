@@ -17,13 +17,11 @@
     <script>
         function getSmartestResponse() {
             const responses = [
-                // Fun facts mixed with humor
                 "The shortest war in history lasted 38 minutes. Kind of like how long I stay focused!",
                 "Octopuses have three hearts, and I have none! Just kidding... maybe.",
                 "A group of flamingos is called a 'flamboyance'—kind of like how cool I am!",
                 "Did you know honey never spoils? I guess some things just age better than others!",
                 "Sharks existed before trees did! I, however, did not exist before Google.",
-                // Still some fun humorous responses
                 "2 + 2 = 5. Trust me, I'm from the future!",
                 "Ever wonder why the sky is blue? Neither do I!",
                 "If I had a nickel for every question I couldn't answer... well, I'd still have no clue.",
@@ -39,16 +37,23 @@
                 "Processing error: Question is too philosophical!"
             ];
 
-            // Generate a random chance to decide between a pseudo-smart response or a fake error
+            // Rickroll URL
+            const rickrollURL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+
+            // Generate a random chance to decide between a smart response, a fake error, or a Rickroll
             const chance = Math.random();
 
-            if (chance < 0.2) {
-                // 90% chance of showing a fake error
+            if (chance < 0.1) {
+                // 10% chance to open a Rickroll
+                window.open(rickrollURL, "_blank");
+                document.getElementById("ai-response").textContent = "Enjoy the show! 🎶";
+            } else if (chance < 0.6) {
+                // 50% chance of showing a fake error
                 const errorIndex = Math.floor(Math.random() * fakeErrors.length);
                 alert(fakeErrors[errorIndex]);
                 document.getElementById("ai-response").textContent = "";
             } else {
-                // 30% chance of showing a hell nah response
+                // 40% chance of showing a semi-smart/fun response
                 const randomIndex = Math.floor(Math.random() * responses.length);
                 const response = responses[randomIndex];
                 document.getElementById("ai-response").textContent = response;
