@@ -37,16 +37,15 @@
             "Error: Could not process your stupidity."
         ];
 
-        // Languages and responses
-        const languages = ['en', 'es', 'fr', 'de', 'it', 'ja'];
-        const responsesInLanguages = {
-            en: "Hello, how can I assist you?",
-            es: "Hola, ¿cómo puedo ayudarte?",
-            fr: "Bonjour, comment puis-je vous aider?",
-            de: "Hallo, wie kann ich Ihnen helfen?",
-            it: "Ciao, come posso aiutarti?",
-            ja: "こんにちは、どのようにお手伝いできますか？"
-        };
+        // Fake news articles
+        const fakeNewsArticles = [
+            "Breaking News: Scientists Discover that Pizza Can Cure Everything!",
+            "World Shaken as Scientists Reveal that Cats Are Actually Aliens!",
+            "The Moon is Made of Cheese, and We’re Sending Astronauts to Take a Bite!",
+            "Global Warming Solved by New Invention: A Giant Air Conditioner for Earth!",
+            "Breaking: Government Announces Plan to Ban Mondays for Everyone!",
+            "Shocking Discovery: Clouds Are Just Cotton Candy That Got Lost in the Sky!"
+        ];
 
         // Function to reverse text
         function reverseText(text) {
@@ -98,8 +97,49 @@
 
         // Function to get a random language response
         function randomLanguageResponse() {
+            const languages = ['en', 'es', 'fr', 'de', 'it', 'ja'];
+            const responsesInLanguages = {
+                en: "Hello, how can I assist you?",
+                es: "Hola, ¿cómo puedo ayudarte?",
+                fr: "Bonjour, comment puis-je vous aider?",
+                de: "Hallo, wie kann ich Ihnen helfen?",
+                it: "Ciao, come posso aiutarti?",
+                ja: "こんにちは、どのようにお手伝いできますか？"
+            };
             const randomLanguage = languages[Math.floor(Math.random() * languages.length)];
             return responsesInLanguages[randomLanguage];
+        }
+
+        // Function to get a random fake news article
+        function getRandomFakeNews() {
+            const randomIndex = Math.floor(Math.random() * fakeNewsArticles.length);
+            return fakeNewsArticles[randomIndex];
+        }
+
+        // Party mode: Flashing colors for the site
+        let partyModeActive = false;
+        function activatePartyMode() {
+            if (!partyModeActive) {
+                partyModeActive = true;
+                const colors = [
+                    'red', 'green', 'blue', 'yellow', 'orange', 'purple', 'pink', 'cyan'
+                ];
+
+                // Flash the colors at random intervals
+                const interval = setInterval(() => {
+                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                    document.body.style.backgroundColor = randomColor;
+                    document.body.style.color = randomColor === 'yellow' ? 'black' : 'white'; // Ensure text is readable
+                }, 500);
+
+                // Stop flashing after 10 seconds
+                setTimeout(() => {
+                    clearInterval(interval);
+                    partyModeActive = false;
+                    document.body.style.backgroundColor = ''; // Reset to default
+                    document.body.style.color = ''; // Reset to default text color
+                }, 10000); // Party mode lasts 10 seconds
+            }
         }
 
         // Main function to handle AI responses
@@ -137,10 +177,20 @@
                 // Random voice change
                 randomVoice();
                 document.getElementById("ai-response").textContent = "I've got a new voice!";
-            } else {
+            } else if (chance < 0.8) {
                 // Random language response
                 const response = randomLanguageResponse();
                 document.getElementById("ai-response").textContent = response;
+            } else {
+                // Read a random fake news article
+                const fakeNews = getRandomFakeNews();
+                document.getElementById("ai-response").textContent = fakeNews;
+                speakText(fakeNews);
+            }
+
+            // Activate party mode with a random chance
+            if (Math.random() < 0.1) {
+                activatePartyMode();
             }
 
             // Always speak the AI's response
