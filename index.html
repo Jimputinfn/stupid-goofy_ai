@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The World's Smarties AI</title>
+    <title>The World's Smartest AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-r from-purple-500 to-pink-500 h-screen flex items-center justify-center">
@@ -17,34 +17,38 @@
     <script>
         function getSmartestResponse() {
             const responses = [
-                "2 + 2 = 5, I'm sure of it!",
-                "Why are bananas blue? Don't ask me.",
-                "The capital of Mars is Jupiter!",
-                "Did you know the ocean is made of lemonade?",
-                "I can solve anything! Just not this.",
-                "Why walk when you can fly? Oh wait, you can't.",
-                "Press the button again for a secret... just kidding!",
-                "I know everything, except for anything useful."
+                // Fun facts mixed with humor
+                "The shortest war in history lasted 38 minutes. Kind of like how long I stay focused!",
+                "Octopuses have three hearts, and I have none! Just kidding... maybe.",
+                "A group of flamingos is called a 'flamboyance'—kind of like how cool I am!",
+                "Did you know honey never spoils? I guess some things just age better than others!",
+                "Sharks existed before trees did! I, however, did not exist before Google.",
+                // Still some fun humorous responses
+                "2 + 2 = 5. Trust me, I'm from the future!",
+                "Ever wonder why the sky is blue? Neither do I!",
+                "If I had a nickel for every question I couldn't answer... well, I'd still have no clue.",
+                "Artificial intelligence? More like artificially confused sometimes.",
+                "If I knew all the answers, I'd be on the moon by now."
             ];
 
             const fakeErrors = [
-                "Error 404: Intelligence not found!",
-                "AI.exe has stopped working.",
-                "Warning: Brain capacity exceeded.",
-                "Critical error: Too much smartness detected!",
-                "Error: Could not process your stupidity."
+                "Error 404: Brain cells not found!",
+                "AI.exe is having an existential crisis.",
+                "Warning: Overload of smartness detected. Try again later.",
+                "Critical error: Too much thinking for one session.",
+                "Processing error: Question is too philosophical!"
             ];
 
-            // Generate a random goofy number to decide between stupid ahh response and error
+            // Generate a random chance to decide between a pseudo-smart response or a fake error
             const chance = Math.random();
 
-            if (chance < 0.3) {
-                // 30% chance of showing a fake error popup
+            if (chance < 0.2) {
+                // 90% chance of showing a fake error
                 const errorIndex = Math.floor(Math.random() * fakeErrors.length);
                 alert(fakeErrors[errorIndex]);
                 document.getElementById("ai-response").textContent = "";
             } else {
-                // 485723489% chance of showing a fucking dumb response
+                // 80% chance of showing a hell nah response
                 const randomIndex = Math.floor(Math.random() * responses.length);
                 const response = responses[randomIndex];
                 document.getElementById("ai-response").textContent = response;
