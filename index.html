@@ -48,7 +48,7 @@
                 alert(fakeErrors[errorIndex]);
                 document.getElementById("ai-response").textContent = "";
             } else {
-                // 80% chance of showing a hell nah response
+                // 30% chance of showing a hell nah response
                 const randomIndex = Math.floor(Math.random() * responses.length);
                 const response = responses[randomIndex];
                 document.getElementById("ai-response").textContent = response;
