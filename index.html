@@ -63,8 +63,12 @@
 
         // Function for Text-to-Speech (voice response)
         function speakText(text) {
-            const utterance = new SpeechSynthesisUtterance(text);
-            window.speechSynthesis.speak(utterance);
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                speechSynthesis.speak(utterance);
+            } else {
+                console.error("Speech synthesis is not supported in this browser.");
+            }
         }
 
         // Trigger confetti
