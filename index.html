@@ -60,21 +60,21 @@
             // Generate a random chance to decide between a smart response, a fake error, a Rickroll, or flip the site
             const chance = Math.random();
 
-            if (chance < 0.05) {
-                // 5% chance to flip the page
+            if (chance < 0.15) {
+                // 15% chance to flip the page
                 document.body.classList.toggle('flip');
                 document.getElementById("ai-response").textContent = "Uh-oh! I think I flipped the page...!";
-            } else if (chance < 0.1) {
-                // 10% chance to open a Rickroll
+            } else if (chance < 0.3) {
+                // 15% chance to open a Rickroll
                 window.open(rickrollURL, "_blank");
                 document.getElementById("ai-response").textContent = "Enjoy the show! 🎶";
             } else if (chance < 0.7) {
-                // 60% chance of showing a fake error
+                // 40% chance of showing a fake error
                 const errorIndex = Math.floor(Math.random() * fakeErrors.length);
                 alert(fakeErrors[errorIndex]);
                 document.getElementById("ai-response").textContent = "";
             } else {
-                // 25% chance of showing a semi-smart/fun response
+                // 30% chance of showing a semi-smart/fun response
                 const randomIndex = Math.floor(Math.random() * responses.length);
                 const response = responses[randomIndex];
                 document.getElementById("ai-response").textContent = response;
