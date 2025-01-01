@@ -48,13 +48,6 @@
             ja: "こんにちは、どのようにお手伝いできますか？"
         };
 
-        // Cat GIFs for random cat break
-        const catGIFs = [
-            "https://cataas.com/cat/gif",
-            "https://placekitten.com/800/600", 
-            "https://purr.objects-us-east-1.dream.io/i/1.jpg"
-        ];
-
         // Function to reverse text
         function reverseText(text) {
             return text.split('').reverse().join('');
@@ -79,17 +72,6 @@
             confetti();
         }
 
-        // Function for random meme
-        function showRandomMeme() {
-            fetch("https://meme-api.herokuapp.com/gimme")
-                .then(response => response.json())
-                .then(data => {
-                    const memeURL = data.url;
-                    window.open(memeURL, "_blank");
-                    document.getElementById("ai-response").textContent = "Here's a meme!";
-                });
-        }
-
         // Function to change the voice randomly
         function randomVoice() {
             const voices = window.speechSynthesis.getVoices();
@@ -99,11 +81,15 @@
             window.speechSynthesis.speak(utterance);
         }
 
-        // Function to show cat GIF
-        function showCatGIF() {
-            const randomCatURL = catGIFs[Math.floor(Math.random() * catGIFs.length)];
-            window.open(randomCatURL, "_blank");
-            document.getElementById("ai-response").textContent = "Take a cat break!";
+        // Function to show random meme
+        function showRandomMeme() {
+            fetch("https://meme-api.herokuapp.com/gimme")
+                .then(response => response.json())
+                .then(data => {
+                    const memeURL = data.url;
+                    window.open(memeURL, "_blank");
+                    document.getElementById("ai-response").textContent = "Here's a meme!";
+                });
         }
 
         // Function to get a random language response
@@ -122,30 +108,27 @@
                 alert(fakeErrors[errorIndex]);
                 document.getElementById("ai-response").textContent = "";
             } else if (chance < 0.2) {
-                // Trigger cat GIF
-                showCatGIF();
-            } else if (chance < 0.3) {
                 // Trigger pixelate effect
                 triggerPixelate();
-            } else if (chance < 0.4) {
+            } else if (chance < 0.3) {
                 // Reverse text response
                 const randomIndex = Math.floor(Math.random() * responses.length);
                 const response = responses[randomIndex];
                 document.getElementById("ai-response").textContent = reverseText(response);
-            } else if (chance < 0.5) {
+            } else if (chance < 0.4) {
                 // Text-to-speech
                 const randomIndex = Math.floor(Math.random() * responses.length);
                 const response = responses[randomIndex];
                 document.getElementById("ai-response").textContent = response;
                 speakText(response);
-            } else if (chance < 0.6) {
+            } else if (chance < 0.5) {
                 // Confetti effect
                 triggerConfetti();
                 document.getElementById("ai-response").textContent = "Confetti time! 🎉";
-            } else if (chance < 0.7) {
+            } else if (chance < 0.6) {
                 // Show meme
                 showRandomMeme();
-            } else if (chance < 0.8) {
+            } else if (chance < 0.7) {
                 // Random voice change
                 randomVoice();
                 document.getElementById("ai-response").textContent = "I've got a new voice!";
@@ -154,8 +137,11 @@
                 const response = randomLanguageResponse();
                 document.getElementById("ai-response").textContent = response;
             }
-        }
 
+            // Always speak the response
+            const latestResponse = document.getElementById("ai-response").textContent;
+            speakText(latestResponse);
+        }
     </script>
 
     <style>
