@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The World's Smarties AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-purple-500 to-pink-500 h-screen flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full text-center">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">Welcome to The World's Smartest AI!</h1>
+        <input type="text" id="user-input" class="border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-purple-400 mb-4" placeholder="Ask me anything..." />
+        <button onclick="getSmartestResponse()" class="bg-purple-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-purple-700 transition-all">Ask The World's Smartest AI</button>
+        <p id="ai-response" class="text-xl font-semibold text-gray-700 mt-6"></p>
+    </div>
+
+    <script>
+        function getSmartestResponse() {
+            const responses = [
+                "2 + 2 = 5, I'm sure of it!",
+                "Why are bananas blue? Don't ask me.",
+                "The capital of Mars is Jupiter!",
+                "Did you know the ocean is made of lemonade?",
+                "I can solve anything! Just not this.",
+                "Why walk when you can fly? Oh wait, you can't.",
+                "Press the button again for a secret... just kidding!",
+                "I know everything, except for anything useful."
+            ];
+
+            const fakeErrors = [
+                "Error 404: Intelligence not found!",
+                "AI.exe has stopped working.",
+                "Warning: Brain capacity exceeded.",
+                "Critical error: Too much smartness detected!",
+                "Error: Could not process your stupidity."
+            ];
+
+            // Generate a random goofy number to decide between stupid ahh response and error
+            const chance = Math.random();
+
+            if (chance < 0.3) {
+                // 30% chance of showing a fake error popup
+                const errorIndex = Math.floor(Math.random() * fakeErrors.length);
+                alert(fakeErrors[errorIndex]);
+                document.getElementById("ai-response").textContent = "";
+            } else {
+                // 485723489% chance of showing a fucking dumb response
+                const randomIndex = Math.floor(Math.random() * responses.length);
+                const response = responses[randomIndex];
+                document.getElementById("ai-response").textContent = response;
+            }
+        }
+    </script>
+</body>
+</html>
